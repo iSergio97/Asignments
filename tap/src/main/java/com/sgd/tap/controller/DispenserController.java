@@ -1,22 +1,28 @@
 package com.sgd.tap.controller;
 
-import com.sgd.tap.model.Dispenser;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.sgd.tap.model.dto.ResponseDispenserDTO;
+import com.sgd.tap.service.DispenserService;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
+import java.util.List;
 
 @RequestMapping("/dispenser")
 @RestController
 public class DispenserController {
 
-    @GetMapping("/demo")
-    public Dispenser demo() {
-        Dispenser dispenser = new Dispenser();
-        dispenser.setId(UUID.randomUUID());
-        dispenser.setVolumen(1.0);
+    private final DispenserService service;
 
-        return dispenser;
+    public DispenserController(DispenserService service) {
+        this.service = service;
+    }
+
+    @GetMapping("/save/{flowVolumen}")
+    public ResponseDispenserDTO save(@PathVariable("flowVolumen") Double flowVolume) {
+        return this.service.save(flowVolume);
+    }
+
+    @GetMapping("/getAll")
+    public List<ResponseDispenserDTO> getAll() {
+        return this.service.getAllDispensers();
     }
 }
