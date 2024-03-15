@@ -14,7 +14,6 @@ import java.util.UUID;
 @Service
 public class DispenserServiceImpl implements DispenserService {
 
-
     private final DispenserRepository repository;
     
     private final DispenserMapper dispenserMapper;
@@ -63,6 +62,6 @@ public class DispenserServiceImpl implements DispenserService {
 
     @Override
     public void delete(UUID id) {
-        this.repository.findById(id).ifPresent(this.repository::delete);
+        this.repository.deleteById(id);
     }
 }
