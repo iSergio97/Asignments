@@ -1,9 +1,6 @@
 package com.sgd.tap.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
@@ -14,6 +11,7 @@ import java.util.UUID;
 
 @Data
 @Builder
+@Entity
 @Table(name = "DISPENSER_SPENDING_LINE")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,6 +20,7 @@ public class DispenserSpendingLine implements Serializable {
     @Serial
     private static final long serialVersionUID = 939357561482497238L;
 
+    @Id
     @Column(name = "ID")
     private UUID id;
 

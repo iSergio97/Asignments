@@ -27,7 +27,7 @@ public class DispenserController {
         this.dispenserSpendingLineService = dispenserSpendingLineService;
     }
 
-    @PostMapping("/")
+    @GetMapping("/{flowVolumen}")
     public ResponseEntity<ResponseDispenserDTO> save(@PathVariable("flowVolumen") Double flowVolume) {
         ResponseDispenserDTO responseDispenserDTO = this.dispenserService.save(flowVolume);
         return new ResponseEntity<>(responseDispenserDTO, HttpStatus.OK);

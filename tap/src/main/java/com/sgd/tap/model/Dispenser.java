@@ -9,7 +9,6 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
-
 @Data
 @Entity
 @Table(name = "DISPENSER")
@@ -31,4 +30,3 @@ public class Dispenser implements Serializable {
     private Double volumen;
 
 }
-

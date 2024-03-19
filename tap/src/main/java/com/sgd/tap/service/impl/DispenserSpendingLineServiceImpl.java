@@ -3,10 +3,9 @@ package com.sgd.tap.service.impl;
 import com.sgd.tap.model.DispenserSpendingLine;
 import com.sgd.tap.model.dto.RequestStatusDTO;
 import com.sgd.tap.model.dto.ResponseDispenserSpendingLineDTO;
-import com.sgd.tap.repository.DispenserRepository;
 import com.sgd.tap.repository.DispenserSpendingLineRepository;
 import com.sgd.tap.service.DispenserSpendingLineService;
-import com.sgd.tap.service.mapper.DispenserSpendingLineMapper;
+import com.sgd.tap.service.mapper.DispenserSpendingLineMapperService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -16,14 +15,14 @@ public class DispenserSpendingLineServiceImpl implements DispenserSpendingLineSe
 
     private final DispenserSpendingLineRepository repository;
 
-    private final DispenserRepository dispenserRepository;
+    private final DispenserSpendingLineMapperService dispenserSpendingLineMapperService;
 
-    private DispenserSpendingLineMapper dispenserSpendingLineMapper;
-
-    public DispenserSpendingLineServiceImpl(DispenserSpendingLineRepository repository, DispenserRepository dispenserRepository) {
+    public DispenserSpendingLineServiceImpl(
+            DispenserSpendingLineRepository repository,
+            DispenserSpendingLineMapperService dispenserSpendingLineMapperService
+            ) {
         this.repository = repository;
-        this.dispenserRepository = dispenserRepository;
-        this.dispenserSpendingLineMapper = DispenserSpendingLineMapper.INSTANCE;
+        this.dispenserSpendingLineMapperService = dispenserSpendingLineMapperService;
     }
 
     @Override
@@ -34,7 +33,7 @@ public class DispenserSpendingLineServiceImpl implements DispenserSpendingLineSe
             return new ArrayList<>();
         }
 
-        return this.dispenserSpendingLineMapper.convertListToDTO(dispenserSpendingLines);
+        return this.dispenserSpendingLineMapperService.convertListToDTO(dispenserSpendingLines);
     }
 
     @Override
@@ -45,7 +44,7 @@ public class DispenserSpendingLineServiceImpl implements DispenserSpendingLineSe
             dispenserSpendingLine = optionalDispenserSpendingLine.get();
             if(!requestStatusDTO.getStatus().equals(dispenserSpendingLine.getStatus())) {
                 dispenserSpendingLine = this.repository.saveAndFlush(dispenserSpendingLine);
-                return this.dispenserSpendingLineMapper.convertToDTO(dispenserSpendingLine);
+                return this.dispenserSpendingLineMapperService.convertToDTO(dispenserSpendingLine);
             }
 
         }
