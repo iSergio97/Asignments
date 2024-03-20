@@ -6,7 +6,7 @@ import PayBill from './PayBill';
 
 export default function Tap() {
     const tap = useSelector(state => state.tap);
-    const { id, amount } = tap;
+    const { amount } = tap;
 
 
     return (

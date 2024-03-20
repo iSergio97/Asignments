@@ -33,7 +33,7 @@ export const tapSlice = createSlice({
             state.status = "close";
             state.amount = amount;
             // TODO: Fix set usages on tap
-            // state.usages = usages;
+            state.usages = usages;
         },
     }
 });

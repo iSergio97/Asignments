@@ -1,35 +1,17 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { closeTap } from '../redux/tapSlice';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import useCloseTap from '../hooks/closeTapHook';
 
 export default function CloseTap() {
-    const REACT_APP_API_PATH = process.env.REACT_APP_API_PATH;
-    const dispatch = useDispatch();
     const tapSlice = useSelector(state => state.tap);
     const { id } = tapSlice;
 
+    const closeTapHandle = useCloseTap();
+
     const confirmCloseTap = () => {
         if (window.confirm('Are you sure you want to close the tap?')) {
-            closeTapHandle();
+            closeTapHandle(id);
         }
-    }
-
-    const closeTapHandle = () => {
-        fetch(REACT_APP_API_PATH + '/dispenser/' + id + '/spending', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Prefer': 'code=200, example=default'
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                dispatch(closeTap(data));
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
     }
 
     return (
