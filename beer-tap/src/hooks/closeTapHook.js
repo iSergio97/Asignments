@@ -4,9 +4,9 @@ import { closeTap } from '../redux/tapSlice';
 
 const useCloseTap = () => {
     const dispatch = useDispatch();
-
+    const REACT_APP_API_PATH = process.env.REACT_APP_API_PATH;
+    
     const closeTapHandle = useCallback((id) => {
-        const REACT_APP_API_PATH = process.env.REACT_APP_API_PATH;
 
         fetch(REACT_APP_API_PATH + '/dispenser/' + id + '/spending', {
             method: 'GET',
@@ -23,7 +23,7 @@ const useCloseTap = () => {
             .catch(error => {
                 console.error('Error:', error);
             });
-    }, [dispatch]);
+    }, [REACT_APP_API_PATH, dispatch]);
 
     return closeTapHandle;
 }

@@ -15,7 +15,7 @@ const initialState = {
     ]
 };
 
-export const tapSlice = createSlice({
+const tapSlice = createSlice({
     name: "tap",
     initialState,
     reducers: {
@@ -24,7 +24,7 @@ export const tapSlice = createSlice({
             state.id = id;
             state.flow_volume = flow_volume;
         },
-        openTap: (state, action) => {
+        openTap: (state) => {
             state.status = "open";
         },
 
@@ -32,14 +32,19 @@ export const tapSlice = createSlice({
             const { amount, usages } = action.payload;
             state.status = "close";
             state.amount = amount;
-            // TODO: Fix set usages on tap
             state.usages = usages;
         },
+        resetTap: (state) => {
+            state.id = '';
+            state.flow_volume = 0;
+            state.status = '';
+            state.amount = 0;
+            state.usages = [];
+        }
     }
 });
 
-
 /* eslint-disable */
-export const { newDispenser, openTap, closeTap } = tapSlice.actions;
+export const { newDispenser, openTap, closeTap, resetTap } = tapSlice.actions;
 
 export default tapSlice.reducer;
